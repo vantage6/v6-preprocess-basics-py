@@ -1,0 +1,1113 @@
+{
+  "name": "v6-preprocess-basics-py",
+  "image": "ghcr.io/vantage6/algorithm/preprocess-basics",
+  "vantage6_version": "5.0",
+  "code_url": "https://github.com/vantage6/v6-preprocess-basics-py",
+  "documentation_url": "",
+  "partitioning": "horizontal",
+  "functions": [
+    {
+      "name": "assign_column",
+      "display_name": "Assign Column",
+      "standalone": true,
+      "description": "Create a new column in a DataFrame based on the given expression.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "column_name",
+          "display_name": "Column Name",
+          "description": "",
+          "type": "string",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "expression",
+          "display_name": "Expression",
+          "description": "",
+          "type": "string",
+          "has_default_value": false,
+          "is_frontend_only": false
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "calculate_age",
+      "display_name": "Calculate Age",
+      "standalone": true,
+      "description": "Calculate the calendar age in years from the birthdate column to a reference date (defaults to today).",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "column",
+          "display_name": "Column",
+          "description": "",
+          "type": "column",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "output_column",
+          "display_name": "Output Column",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": "age"
+        },
+        {
+          "name": "fmt",
+          "display_name": "Fmt",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "keep_original",
+          "display_name": "Keep Original",
+          "description": "",
+          "type": "boolean",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": true
+        },
+        {
+          "name": "reference_date",
+          "display_name": "Reference Date",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "change_column_type",
+      "display_name": "Change Column Type",
+      "standalone": true,
+      "description": "Change DataFrame column data types.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "columns",
+          "display_name": "Columns",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "target_type",
+          "display_name": "Target Type",
+          "description": "",
+          "type": "string",
+          "has_default_value": false,
+          "is_frontend_only": false,
+          "allowed_values": [
+            "int",
+            "float",
+            "str",
+            "bool",
+            "category",
+            "datetime",
+            "timedelta",
+            "object"
+          ]
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "collapse",
+      "display_name": "Collapse",
+      "standalone": true,
+      "description": "Collapses a DataFrame by grouping by one or more columns and aggregating the rest.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "group_columns",
+          "display_name": "Group Columns",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "aggregation_strategy",
+          "display_name": "Aggregation Strategy",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null,
+          "allowed_values": [
+            "sum",
+            "mean",
+            "min",
+            "max",
+            "count",
+            "len",
+            "std",
+            "var",
+            "first",
+            "last",
+            "nunique",
+            "size",
+            "list",
+            "set",
+            "any",
+            "all"
+          ],
+          "conditional_on": "single_aggregation_strategy",
+          "conditional_value": true,
+          "conditional_operator": "=="
+        },
+        {
+          "name": "aggregation_dict",
+          "display_name": "Aggregation Dict",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null,
+          "conditional_on": "single_aggregation_strategy",
+          "conditional_value": false,
+          "conditional_operator": "=="
+        },
+        {
+          "name": "default_aggregation",
+          "display_name": "Default Aggregation",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null,
+          "allowed_values": [
+            "sum",
+            "mean",
+            "min",
+            "max",
+            "count",
+            "len",
+            "std",
+            "var",
+            "first",
+            "last",
+            "nunique",
+            "size",
+            "list",
+            "set",
+            "any",
+            "all"
+          ],
+          "conditional_on": "single_aggregation_strategy",
+          "conditional_value": false,
+          "conditional_operator": "=="
+        },
+        {
+          "name": "strict_mode",
+          "display_name": "Strict Mode",
+          "description": "",
+          "type": "boolean",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": true
+        }
+      ],
+      "databases": [],
+      "frontend_arguments": {
+        "single_aggregation_strategy": {
+          "before_argument": "aggregation_strategy",
+          "name": "single_aggregation_strategy",
+          "display_name": "Single aggregation strategy",
+          "description": "Aggregate all columns using the same strategy if enabled. Otherwise, provide a dictionary with strategy per column.",
+          "type": "boolean",
+          "has_default_value": true,
+          "default": true,
+          "is_frontend_only": true
+        }
+      }
+    },
+    {
+      "name": "discretize_column",
+      "display_name": "Discretize Column",
+      "standalone": true,
+      "description": "Discretize a column in a new DataFrame based on the given bin edges or number of bins.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "column_name",
+          "display_name": "Column Name",
+          "description": "",
+          "type": "column",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "bins",
+          "display_name": "Bins",
+          "description": "",
+          "type": "list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "labels",
+          "display_name": "Labels",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "right",
+          "display_name": "Right",
+          "description": "",
+          "type": "boolean",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": true
+        },
+        {
+          "name": "include_lowest",
+          "display_name": "Include Lowest",
+          "description": "",
+          "type": "boolean",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": false
+        },
+        {
+          "name": "output_column",
+          "display_name": "Output Column",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": "discretized"
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "drop_columns",
+      "display_name": "Drop Columns",
+      "standalone": true,
+      "description": "Drop specified columns from the DataFrame.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "columns",
+          "display_name": "Columns",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "encode",
+      "display_name": "Encode",
+      "standalone": true,
+      "description": "Custom encoding of DataFrame columns using a provided mapping.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "columns",
+          "display_name": "Columns",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "mapping",
+          "display_name": "Mapping",
+          "description": "",
+          "type": "object",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "unknown_value",
+          "display_name": "Unknown Value",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": -1
+        },
+        {
+          "name": "unknown_value_type",
+          "display_name": "Unknown Value Type",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": "str",
+          "allowed_values": [
+            "str",
+            "int"
+          ]
+        },
+        {
+          "name": "raise_on_unknown",
+          "display_name": "Raise On Unknown",
+          "description": "",
+          "type": "boolean",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": false
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "extract_from_string",
+      "display_name": "Extract From String",
+      "standalone": true,
+      "description": "Extracts specific patterns from a string column in a DataFrame.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "column",
+          "display_name": "Column",
+          "description": "",
+          "type": "column",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "pattern",
+          "display_name": "Pattern",
+          "description": "",
+          "type": "string",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "not_found",
+          "display_name": "Not Found",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "keep_original",
+          "display_name": "Keep Original",
+          "description": "",
+          "type": "boolean",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": true
+        },
+        {
+          "name": "output_column",
+          "display_name": "Output Column",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": "extracted"
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "filter_by_date",
+      "display_name": "Filter By Date",
+      "standalone": true,
+      "description": "Filters a DataFrame based on a datetime column within a given start and end date.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "column",
+          "display_name": "Column",
+          "description": "",
+          "type": "column",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "start_date",
+          "display_name": "Start Date",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "end_date",
+          "display_name": "End Date",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "keep_between",
+          "display_name": "Keep Between",
+          "description": "",
+          "type": "boolean",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": true
+        },
+        {
+          "name": "fmt",
+          "display_name": "Fmt",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "filter_range",
+      "display_name": "Filter Range",
+      "standalone": true,
+      "description": "Filter the data based on a minimum and/or maximum value in a given column.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "column",
+          "display_name": "Column",
+          "description": "",
+          "type": "column",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "min_value",
+          "display_name": "Min Value",
+          "description": "",
+          "type": "number",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "max_value",
+          "display_name": "Max Value",
+          "description": "",
+          "type": "number",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "include_min",
+          "display_name": "Include Min",
+          "description": "",
+          "type": "boolean",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": true
+        },
+        {
+          "name": "include_max",
+          "display_name": "Include Max",
+          "description": "",
+          "type": "boolean",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": true
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "group_statistics",
+      "display_name": "Group Statistics",
+      "standalone": true,
+      "description": "Adds statistical information to a DataFrame based on a grouping column.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "group_columns",
+          "display_name": "Group Columns",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "target_columns",
+          "display_name": "Target Columns",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "aggregation_strategy",
+          "display_name": "Aggregation Strategy",
+          "description": "",
+          "type": "string",
+          "has_default_value": false,
+          "is_frontend_only": false,
+          "allowed_values": [
+            "sum",
+            "mean",
+            "min",
+            "max",
+            "count",
+            "len",
+            "std",
+            "var",
+            "first",
+            "last",
+            "nunique",
+            "size",
+            "list",
+            "set",
+            "any",
+            "all"
+          ]
+        },
+        {
+          "name": "prefix",
+          "display_name": "Prefix",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "impute",
+      "display_name": "Impute",
+      "standalone": true,
+      "description": "Impute missing values in a DataFrame. If group_columns are provided, the imputation is done within the groups defined by those columns.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "columns",
+          "display_name": "Columns",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "missing_values",
+          "display_name": "Missing Values",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "missing_values_type",
+          "display_name": "Missing Values Type",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": "str",
+          "allowed_values": [
+            "str",
+            "int",
+            "float"
+          ]
+        },
+        {
+          "name": "strategy",
+          "display_name": "Strategy",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": "mean",
+          "allowed_values": [
+            "mean",
+            "median",
+            "most_frequent",
+            "constant"
+          ]
+        },
+        {
+          "name": "group_columns",
+          "display_name": "Group Columns",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "fill_value",
+          "display_name": "Fill Value",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null,
+          "conditional_on": "strategy",
+          "conditional_value": "constant",
+          "conditional_operator": "=="
+        },
+        {
+          "name": "fill_value_type",
+          "display_name": "Fill Value Type",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": "str",
+          "conditional_on": "strategy",
+          "conditional_value": "constant",
+          "conditional_operator": "==",
+          "allowed_values": [
+            "str",
+            "int",
+            "float"
+          ]
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "min_max_scale",
+      "display_name": "Min Max Scale",
+      "standalone": true,
+      "description": "Perform min-max scaling on specified columns of a DataFrame using the formula (x - min) / (max - min).",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "min_vals",
+          "display_name": "Min Vals",
+          "description": "",
+          "type": "list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "max_vals",
+          "display_name": "Max Vals",
+          "description": "",
+          "type": "list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "columns",
+          "display_name": "Columns",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "one_hot_encode",
+      "display_name": "One Hot Encode",
+      "standalone": true,
+      "description": "Perform one-hot encoding on a specific column of a DataFrame.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "column",
+          "display_name": "Column",
+          "description": "",
+          "type": "column",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "categories",
+          "display_name": "Categories",
+          "description": "",
+          "type": "list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "unknown_category",
+          "display_name": "Unknown Category",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": "unknown"
+        },
+        {
+          "name": "drop_original",
+          "display_name": "Drop Original",
+          "description": "",
+          "type": "boolean",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": true
+        },
+        {
+          "name": "prefix",
+          "display_name": "Prefix",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "redefine_column",
+      "display_name": "Redefine Column",
+      "standalone": true,
+      "description": "Modify an existing column in a DataFrame based on the given expression.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "column_name",
+          "display_name": "Column Name",
+          "description": "",
+          "type": "column",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "expression",
+          "display_name": "Expression",
+          "description": "",
+          "type": "string",
+          "has_default_value": false,
+          "is_frontend_only": false
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "rename_columns",
+      "display_name": "Rename Columns",
+      "standalone": true,
+      "description": "Rename DataFrame columns.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "old_names",
+          "display_name": "Old Names",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "new_names",
+          "display_name": "New Names",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "strict",
+          "display_name": "Strict",
+          "description": "",
+          "type": "boolean",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": false
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "select_columns",
+      "display_name": "Select Columns",
+      "standalone": true,
+      "description": "Select specific columns from a DataFrame.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "columns",
+          "display_name": "Columns",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "select_rows",
+      "display_name": "Select Rows",
+      "standalone": true,
+      "description": "Select rows from the data based on a query. It uses the pandas.DataFrame.query function to filter the data.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "query",
+          "display_name": "Query",
+          "description": "",
+          "type": "string",
+          "has_default_value": false,
+          "is_frontend_only": false
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "standard_scale",
+      "display_name": "Standard Scale",
+      "standalone": true,
+      "description": "Perform standard scaling on specified columns of a DataFrame using the formula (x - mean) / std.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "means",
+          "display_name": "Means",
+          "description": "",
+          "type": "list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "stds",
+          "display_name": "Stds",
+          "description": "",
+          "type": "list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "columns",
+          "display_name": "Columns",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "timedelta",
+      "display_name": "Timedelta",
+      "standalone": true,
+      "description": "Create a timedelta column from a datetime column. The new column shows the time in days since the reference date.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "column",
+          "display_name": "Column",
+          "description": "",
+          "type": "column",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "output_column",
+          "display_name": "Output Column",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": "timedelta"
+        },
+        {
+          "name": "to_date_column",
+          "display_name": "To Date Column",
+          "description": "",
+          "type": "column",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "to_date",
+          "display_name": "To Date",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null,
+          "conditional_on": "to_date_column",
+          "conditional_value": null,
+          "conditional_operator": "!="
+        },
+        {
+          "name": "fmt",
+          "display_name": "Fmt",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "to_datetime",
+      "display_name": "To Datetime",
+      "standalone": true,
+      "description": "Convert a string column to a datetime column in a new DataFrame.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "columns",
+          "display_name": "Columns",
+          "description": "",
+          "type": "column_list",
+          "has_default_value": false,
+          "is_frontend_only": false
+        },
+        {
+          "name": "fmt",
+          "display_name": "Fmt",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "errors",
+          "display_name": "Errors",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": "raise",
+          "allowed_values": [
+            "raise",
+            "ignore",
+            "coerce"
+          ]
+        },
+        {
+          "name": "output_column",
+          "display_name": "Output Column",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        }
+      ],
+      "databases": []
+    },
+    {
+      "name": "to_timedelta",
+      "display_name": "To Timedelta",
+      "standalone": true,
+      "description": "Convert a string column or apply a fixed duration to a new timedelta column in a new DataFrame.",
+      "step_type": "data_preprocessing",
+      "ui_visualizations": [],
+      "arguments": [
+        {
+          "name": "input_column",
+          "display_name": "Input Column",
+          "description": "",
+          "type": "column",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "duration",
+          "display_name": "Duration",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null
+        },
+        {
+          "name": "unit",
+          "display_name": "Unit",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": "days",
+          "allowed_values": [
+            "W",
+            "days",
+            "hours",
+            "m",
+            "s",
+            "ms",
+            "us",
+            "ns"
+          ]
+        },
+        {
+          "name": "output_column",
+          "display_name": "Output Column",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": null,
+          "conditional_on": "duration",
+          "conditional_value": null,
+          "conditional_operator": "!="
+        },
+        {
+          "name": "errors",
+          "display_name": "Errors",
+          "description": "",
+          "type": "string",
+          "has_default_value": true,
+          "is_frontend_only": false,
+          "default": "raise",
+          "allowed_values": [
+            "raise",
+            "ignore",
+            "coerce"
+          ]
+        }
+      ],
+      "databases": []
+    }
+  ]
+}

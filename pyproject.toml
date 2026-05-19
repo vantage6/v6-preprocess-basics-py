@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "v6-preprocess-basics-py"
+version = "1.0.0"
+description = "This algorithm makes preprocessing functions defined in the vantage6 algorithm tools available in an algorithm image."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+  "vantage6-algorithm-tools>=5.0.0a43",
+  "pandas",
+]
+authors = [
+  { name = "Bart van Beusekom", email = "b.vanbeusekom@iknl.nl" },
+]
+license = { text = "MIT" }
+keywords = ["vantage6", "algorithm", "federated-learning"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.13",
+]
+
+[project.urls]
+Homepage = "https://github.com/vantage6/v6-preprocess-basics-py"
+Repository = "https://github.com/vantage6/v6-preprocess-basics-py"
+Issues = "https://github.com/vantage6/v6-preprocess-basics-py/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["v6-preprocess-basics-py"]
+
+[tool.uv]
+prerelease = "allow"
