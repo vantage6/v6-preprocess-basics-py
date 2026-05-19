@@ -1,38 +1,24 @@
 v6-preprocess-basics-py
-==================
+=======================
 
 Description
 -----------
 
-.. Give short description of the algorithm on this main page of the docs
+This algorithm makes preprocessing functions defined in the vantage6 algorithm tools
+available in an algorithm image. This documentation is kept minimal, as the preprocessing
+functions are maintained in the general vantage6 repository, and documenting them here
+would be redundant and difficult to maintain.
+
+The preprocessing functions imported in this algorithm are available in the
+`vantage6-algorithm-tools preprocessing package <https://github.com/vantage6/vantage6/tree/main/vantage6-algorithm-tools/vantage6/algorithm/preprocessing>`_:
+
+* `aggregation <https://github.com/vantage6/vantage6/blob/main/vantage6-algorithm-tools/vantage6/algorithm/preprocessing/aggregation.py>`_
+* `column <https://github.com/vantage6/vantage6/blob/main/vantage6-algorithm-tools/vantage6/algorithm/preprocessing/column.py>`_
+* `datetime <https://github.com/vantage6/vantage6/blob/main/vantage6-algorithm-tools/vantage6/algorithm/preprocessing/datetime.py>`_
+* `encoding <https://github.com/vantage6/vantage6/blob/main/vantage6-algorithm-tools/vantage6/algorithm/preprocessing/encoding.py>`_
+* `filtering <https://github.com/vantage6/vantage6/blob/main/vantage6-algorithm-tools/vantage6/algorithm/preprocessing/filtering.py>`_
 
 Authors
 -------
 
-.. List authors.
-
 Bart van Beusekom
-
-Source code
------------
-
-.. Describe where to find source code and docker files
-
-
-Contents
---------
-
-.. toctree::
-   :maxdepth: 2
-   :hidden:
-
-   self
-
-.. toctree::
-    :maxdepth: 2
-
-    v6-preprocess-basics-py/implementation
-    v6-preprocess-basics-py/usage
-    v6-preprocess-basics-py/privacy
-    v6-preprocess-basics-py/validation
-    v6-preprocess-basics-py/references
