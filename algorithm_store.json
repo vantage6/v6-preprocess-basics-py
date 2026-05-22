@@ -162,7 +162,7 @@
           "description": "Aggregate all columns using the same strategy if enabled. Otherwise, provide a dictionary with strategy per column.",
           "type": "boolean",
           "has_default_value": true,
-          "default_value": true,
+          "default_value": "true",
           "is_frontend_only": true
         },
         {
@@ -192,7 +192,7 @@
             "all"
           ],
           "conditional_on": "single_aggregation_strategy",
-          "conditional_value": true,
+          "conditional_value": "true",
           "conditional_operator": "=="
         },
         {
@@ -204,7 +204,7 @@
           "is_frontend_only": false,
           "default_value": null,
           "conditional_on": "single_aggregation_strategy",
-          "conditional_value": false,
+          "conditional_value": "false",
           "conditional_operator": "=="
         },
         {
@@ -234,7 +234,7 @@
             "all"
           ],
           "conditional_on": "single_aggregation_strategy",
-          "conditional_value": false,
+          "conditional_value": "false",
           "conditional_operator": "=="
         },
         {
