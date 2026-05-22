@@ -1,5 +1,5 @@
-v6-preprocess-basics-py
-=======================
+Preprocessing basics
+====================
 
 Description
 -----------
